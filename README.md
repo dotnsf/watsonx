@@ -16,6 +16,7 @@
   - Refer [this document](https://qiita.com/yanagih/items/3d1b081f46799072df80) for details.
 
 - **IAM API Key** for your IBM Cloud account
+  - Create it at IBM Cloud dashboard, if you don't have it.
   - Assume `xxxxxxxxxx` is your IAM API Key for following instructions
 
 - Find `project_id` of your project.
