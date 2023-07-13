@@ -43,6 +43,11 @@
 https://cloud.ibm.com/apidocs/watsonxdata
 
 
+## watsonx.ai Docs
+
+https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/welcome-main.html?context=wx&audience=wdp
+
+
 ## Licensing
 
 This code is licensed under MIT.
