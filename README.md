@@ -40,7 +40,14 @@
 
 ## API Docs
 
+### Authenticate(AccessToken)
+
 https://cloud.ibm.com/apidocs/watsonxdata
+
+
+### Generate Text from input prompt
+
+https://cloud.ibm.com/apidocs/machine-learning
 
 
 ## watsonx.ai Docs
