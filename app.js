@@ -52,8 +52,6 @@ var env_apikey = 'APIKEY' in process.env ? process.env.APIKEY : '';
 var env_project_id = 'PROJECT_ID' in process.env ? process.env.PROJECT_ID : ''; 
 var env_model_id = 'MODEL_ID' in process.env ? process.env.MODEL_ID : ''; 
 
-var access_token = null;
-
 async function getAccessToken( apikey ){
   return new Promise( function( resolve, reject ){
     if( apikey ){
@@ -73,7 +71,6 @@ async function getAccessToken( apikey ){
       .then( function( result ){
         if( result && result.data && result.data.access_token ){
           //console.log( 'access_token = ' + result.data.access_token );
-          access_token = result.data.access_token;
           resolve( { status: true, access_token: result.data.access_token } );
         }else{
           resolve( { status: false, error: 'no access_token retrieved.' } );
@@ -88,7 +85,7 @@ async function getAccessToken( apikey ){
   });
 }
 
-async function generateText( project_id, model_id, input, max_new_tokens ){
+async function generateText( access_token, project_id, model_id, input, max_new_tokens ){
   return new Promise( function( resolve, reject ){
     if( access_token ){
       if( project_id && input && max_new_tokens ){
@@ -146,17 +143,9 @@ app.post( '/api/generate_text', async function( req, res ){
 
   try{
     if( apikey && project_id && model_id && input && max_new_tokens ){
-      var result0 = null;
-      if( !access_token ){
-        result0 = await getAccessToken( apikey );
-        if( result0 && result0.status ){
-          access_token = result0.access_token;
-        }
-      }
-      //console.log( {access_token} );
-
-      if( access_token ){
-        var result = await generateText( project_id, model_id, input, max_new_tokens );
+      var result0 = await getAccessToken( apikey );
+      if( result0 && result0.status && result0.access_token ){
+        var result = await generateText( result0.access_token, project_id, model_id, input, max_new_tokens );
         if( result && result.status ){
           var results = result.results;
           if( results && results[0] && results[0].generated_text ){
